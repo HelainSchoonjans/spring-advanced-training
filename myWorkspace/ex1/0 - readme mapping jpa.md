@@ -1,12 +1,19 @@
 # Exercice 1 (préalable) :
 
-1. Examiner le fichier `pom.xml` et plus particulièrement les dépendances : 
+1. Lancer la base de données:
+
+    # à faire dans le dossier workspaces
+    docker compose up pg
+
+2. Ajouter une connection Intellij vers posgres, type 'User', username 'postgres' 
+
+3. Examiner le fichier `pom.xml` et plus particulièrement les dépendances : 
    * `org.hibernate hibernate-core` (implémentation JPA)
    * `org.hibernate hibernate-ehcache` (cache de niveau 2 pour Hibernate)
    * `org.hibernate hibernate-hikaricp` (pool de connexion jdbc)
    * `org.springframework spring-orm` (couplage spring-jpa + spring-txt comme dépendance transitive)
 
-2. Mapping (par annotations) pour les classes du package com.acme.ex2.model : 
+4. Mapping (par annotations) pour les classes du package com.acme.ex2.model : 
    
    Comprendre pourquoi certaines classes sont des entités et d'autres des composants.
    
