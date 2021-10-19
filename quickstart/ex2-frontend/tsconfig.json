@@ -1,0 +1,11 @@
+{
+    "compilerOptions": { 
+      "target": "es5",
+      "module": "es2015",
+      "moduleResolution": "node",  
+      "lib": [ "es2017", "dom" ],
+      "importHelpers": true,
+      "emitDecoratorMetadata":true,
+      "experimentalDecorators": true
+    }
+  }

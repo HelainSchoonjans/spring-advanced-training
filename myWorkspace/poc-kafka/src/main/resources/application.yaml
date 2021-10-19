@@ -1,0 +1,6 @@
+spring.kafka:
+  bootstrap-servers: localhost:29092
+logging:
+  pattern.console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"
+  level:
+    root: INFO

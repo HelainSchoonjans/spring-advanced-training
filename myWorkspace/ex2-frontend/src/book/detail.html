@@ -1,0 +1,40 @@
+<template>
+    <div style="display: flex; flex-direction: row">
+        <div style="flex: 1; padding: 15px">
+            Title : ${book.title}<br />
+            Author : ${book._embedded.author.name}<br />
+            <hr />
+            Comments :
+            <ul>
+                <li class="list-group-item" repeat.for="comment of book.comments">
+                    ${comment.text}
+                </li>
+            </ul>
+        </div>
+
+        <div style="flex: 1; padding: 15px">
+            <!-- début du formulaire de réservation -->
+            <form if.bind="commandResult.status!=202" submit.delegate="borrow()">
+                <fieldset>
+                    <legend>Borrow this book</legend>
+                    <div style="margin-bottom: 15px">
+                        <label for="pickupDate">Pickup date :</label>
+                        <input type="date" class="form-control" value.bind="command.pickupDate" />
+                        <span style="color:red">${commandResult.error.data.pickupDate}&nbsp;</span>
+                    </div>
+
+                    <div style="margin-bottom: 15px">
+                        <label for="returnDate">Return date :</label>
+                        <input type="date" class="form-control" value.bind="command.returnDate" />
+                        <span style="color:red">${commandResult.error.data.returnDate}&nbsp;</span>
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit" style="margin-top:20px">Borrow</button>
+                    <span style="color:red" if.bind="commandResult.error.description=='application'">${commandResult.error.data}&nbsp;</span>
+                    
+                </fieldset>
+            </form>
+            <!-- fin du formulaire de réservation -->
+        </div>
+    </div>
+</template>

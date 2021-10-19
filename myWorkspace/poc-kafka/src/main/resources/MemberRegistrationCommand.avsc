@@ -1,0 +1,11 @@
+{
+	"type": "record",
+	"name": "MemberRegistrationCommand",
+	"namespace": "com.acme.schemaregistry.avro",
+	"fields": [
+		{ "name": "username" , "type": "string"},
+		{ "name": "password"   ,"type": "string"},
+		{ "name": "firstname", "type": "string" },
+		{ "name": "lastname", "type": "string"}
+ 	]
+}

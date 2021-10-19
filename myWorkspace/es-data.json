@@ -1,0 +1,61 @@
+{"index":{"_index":"books","_id":1}}
+{"category":"Essai","author":"Henry David Thoreau","title":"Walden"}
+{"index":{"_index":"books","_id":2}}
+{"category":"Essai","author":"Jorge Semprun","title":"L'\''ecriture ou la vie"}
+{"index":{"_index":"books","_id":3}}
+{"category":"Roman","author":"Gabriel Garcia Marquez","title":"Cent ans de solitude"}
+{"index":{"_index":"books","_id":4}}
+{"category":"Roman","author":"Miguel de Cervantes","title":"Don Quichotte"}
+{"index":{"_index":"books","_id":5}}
+{"category":"Roman","author":"Honoré de Balzac","title":"Illusions perdues"}
+{"index":{"_index":"books","_id":6}}
+{"category":"Roman","author":"Marcel Proust","title":"La recherche du temps perdu"}
+{"index":{"_index":"books","_id":7}}
+{"category":"Roman","author":"Charles Dickens","title":"De grandes espérances"}
+{"index":{"_index":"books","_id":8}}
+{"category":"Roman","author":"Vladimir Nabokov","title":"Lolita"}
+{"index":{"_index":"books","_id":9}}
+{"category":"Roman","author":"James Joyce","title":"Ulysse"}
+{"index":{"_index":"books","_id":10}}
+{"category":"Roman","author":"Fedor Dostoievski","title":"Les frères Karamazov"}
+{"index":{"_index":"books","_id":11}}
+{"category":"Roman","author":"Victor Hugo","title":"Les misérables"}
+{"index":{"_index":"books","_id":12}}
+{"category":"Roman","author":"Romain Gary","title":"Les racines du ciel"}
+{"index":{"_index":"books","_id":13}}
+{"category":"Roman","author":"Joseph Conrad","title":"Au coeur des ténèbres"}
+{"index":{"_index":"books","_id":14}}
+{"category":"Roman","author":"William Faulkner","title":"Le bruit et la fureur"}
+{"index":{"_index":"books","_id":15}}
+{"category":"Roman","author":"Thomas Mann","title":"La montagne magique"}
+{"index":{"_index":"books","_id":16}}
+{"category":"Roman","author":"Joseph Kessel","title":"Les cavaliers"}
+{"index":{"_index":"books","_id":17}}
+{"category":"Roman","author":"Franz Kafka","title":"Le procès"}
+{"index":{"_index":"books","_id":18}}
+{"category":"Roman","author":"Alexandre Dumas","title":"Le comte de Monte Christo"}
+{"index":{"_index":"books","_id":19}}
+{"category":"Roman","author":"Leon Tolstoi","title":"Guerre et paix"}
+{"index":{"_index":"books","_id":20}}
+{"category":"Roman","author":"Ernest Hemingway","title":"Le vieil homme et la mer"}
+{"index":{"_index":"books","_id":21}}
+{"category":"Roman","author":"Albert Cohen","title":"Belle du seigneur"}
+{"index":{"_index":"books","_id":22}}
+{"category":"Roman","author":"Emile Zola","title":"Germinal"}
+{"index":{"_index":"books","_id":23}}
+{"category":"Roman","author":"J.R Tolkien","title":"Le seigneur des anneaux"}
+{"index":{"_index":"books","_id":24}}
+{"category":"Poésie","author":"Walt Withman","title":"Feuilles d'\''herbe"}
+{"index":{"_index":"books","_id":25}}
+{"category":"Poésie","author":"Charles Baudelaire","title":"Les fleurs du mal"}
+{"index":{"_index":"books","_id":26}}
+{"category":"Poésie","author":"Arthur Rimbaud","title":"Une saison en enfer"}
+{"index":{"_index":"books","_id":27}}
+{"category":"Biographie","author":"Giuseppe Tomasi di Lampedusa","title":"Le guépard"}
+{"index":{"_index":"books","_id":28}}
+{"category":"Biographie","author":"Jack London","title":"Martin Eden"}
+{"index":{"_index":"books","_id":29}}
+{"category":"Biographie","author":"Stefan Zweig","title":"Magellan"}
+{"index":{"_index":"books","_id":30}}
+{"category":"Biographie","author":"Ernesto Guevara","title":"Carnets de voyage"}
+

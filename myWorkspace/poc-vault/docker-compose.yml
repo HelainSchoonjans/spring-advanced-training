@@ -1,0 +1,22 @@
+version: '3.4'
+services:
+  pg: # connnection string : jdbc:postgresql://localhost:5432/formation_spring?user=postgres
+    image: docker.io/postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      #POSTGRES_HOST_AUTH_METHOD: trust # otherwise POSTGRES_PASSWORD is required
+      POSTGRES_DB: formation_spring
+    volumes:
+      - ./pg-data.sql:/docker-entrypoint-initdb.d/init.sql
+  vault:
+    image: docker.io/vault:latest
+    ports:
+      - 8200:8200
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_DEV_ROOT_TOKEN_ID: azerty12345

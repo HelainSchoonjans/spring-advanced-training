@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.zaxxer.hikari.pool" level="debug"/>
+
+	<logger name="org.hibernate.SQL" level="debug"/>
+
+	<logger name="org.springframework.boot" level="info"/>
+
+	<logger name="org.springframework.jdbc.support.JdbcTransactionManager" level="debug"/>
+
+	<logger name="org.springframework.orm.jpa.JpaTransactionManager" level="debug"/>
+
+	<logger name="org.springframework.security" level="debug"/>
+
+	<logger name="org.springframework.web" level="debug"/>
+
+	<logger name="com.acme" level="debug"/>
+
+	<root level="warn">
+		<appender-ref ref="ConsoleAppender" />
+	</root>
+</configuration>

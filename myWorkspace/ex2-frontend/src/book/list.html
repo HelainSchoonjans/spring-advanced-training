@@ -1,0 +1,25 @@
+<template>    
+    <div style="display: flex; flex-direction:row">
+        <div style="flex: 1; padding: 15px">
+            <form>
+                <label for="title">Title : </label>
+                <input type="text" value.bind="criteria.title" class="form-control" />
+                <br />
+                <label for="authorName">Author : </label>
+                <input type="text" value.bind="criteria.authorName" class="form-control" />
+                <br />
+                <button type="submit" class="btn btn-primary" click.trigger="find()">Search</button>
+            </form>
+        </div>
+        <div style="flex: 2; padding: 15px">
+            <div if.bind="results">
+                ${results.length} results
+                <ul class="list-group">
+                    <li class="list-group-item" repeat.for="b of results">
+                        <a href="/books/${b.id}">${b.title} - ${b.author}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

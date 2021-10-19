@@ -1,0 +1,40 @@
+version: '3.4'
+services:
+  pg: # connnection string : jdbc:postgresql://localhost:5432/formation_spring?user=postgres
+    image: docker.io/postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust # otherwise POSTGRES_PASSWORD is required
+      POSTGRES_DB: formation_spring
+    volumes:
+      - ./pg-data.sql:/docker-entrypoint-initdb.d/init.sql
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    ports:
+      - 8282:8080
+    environment:
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.scripts=enabled -Dkeycloak.profile.feature.upload_scripts=enabled 
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      discovery.type: single-node
+    # pour la création d'un index et des enregistrements :
+    # curl -X PUT http://localhost:9200/books
+    # curl -X POST "localhost:9200/_bulk?pretty" -H "Content-Type: application/x-ndjson" --data-binary @"./es-data.json"
+  vault:
+    image: docker.io/vault:latest
+    ports:
+      - 8200:8200
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_DEV_ROOT_TOKEN_ID: azerty12345
