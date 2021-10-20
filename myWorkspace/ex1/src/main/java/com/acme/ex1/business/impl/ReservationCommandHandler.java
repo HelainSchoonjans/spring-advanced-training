@@ -16,6 +16,8 @@ import com.acme.ex1.model.Member;
 import com.acme.ex1.model.Reservation;
 import com.acme.ex1.service.AbstractCommand;
 import com.acme.ex1.service.command.ReservationCommand;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Handler
 public class ReservationCommandHandler implements CommandHandler {
@@ -66,5 +68,15 @@ public class ReservationCommandHandler implements CommandHandler {
         cmd.setReservation(reservation);
 
     }
+
+    /*
+    execute something after commit
+    If an exception occurs here, the transaction still occurred.
+    To be sure that the mail will be sent, we still need a queue or something to be resilient in case of errors.
+     */
+    /*@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    void sendMail(ReservationCommand command) {
+
+    }*/
 }
 
