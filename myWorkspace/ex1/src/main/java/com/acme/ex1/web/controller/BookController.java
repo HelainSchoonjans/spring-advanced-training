@@ -32,7 +32,7 @@ public class BookController {
     }
 
     @GetMapping(path = "books", params = "title")
-    String list(@ModelAttribute("probe") Book probe, Map<String, Object> model, @RequestParam String title) {
+    String list(@ModelAttribute("probe") Book probe, Map<String, Object> model) {
         ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         List<Book> results = bookRepository.findAll(Example.of(probe, matcher));
 

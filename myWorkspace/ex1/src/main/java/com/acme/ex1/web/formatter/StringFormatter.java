@@ -7,6 +7,10 @@ import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+/*
+allows to specify how spring should handle input parameters
+here we want to ensure that empty strings are handled as null
+ */
 @Component
 public class StringFormatter implements Formatter<String> {
 
