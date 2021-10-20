@@ -6,7 +6,6 @@ import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication
@@ -26,5 +25,19 @@ public class ApplicationConfig {
         //System.out.println(ctx.getBeansOfType(org.springframework.transaction.PlatformTransactionManager.class));
         System.out.println("closing");
         ctx.close();
+
+        // spring is collecting the factories:
+        // ApplicationConfig.class.getClassLoader().getResources("META_INF/")
+        /*
+        while(resources.hasMoreElements()) {
+           Url url = resources.nextElement();
+           try (InputSteam is = url.openStream(){
+                Properties props = new Properties();
+                if(props.containsKey(EnableAutoConfiguration.class.getName())) {
+                    String classesToLoad = props.getProperty(EnableAutoConfiguration.class.getName();
+                    }
+            }
+        }
+        }*/
     }
 }
