@@ -24,10 +24,13 @@ public class MemberRegistrationCommandHandler implements CommandHandler {
 
     //private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
+
+    public MemberRegistrationCommandHandler(MemberRepository memberRepository, CategoryRepository categoryRepository) {
+        this.memberRepository = memberRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     @EventListener(MemberRegistrationCommand.class)
