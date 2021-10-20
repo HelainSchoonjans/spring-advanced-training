@@ -20,6 +20,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByTitleContainingAndAuthorFirstnameContaining(
             @Param("title") String title, @Param("firstname") String firstname);
 
+    // to prevent deletions with rest resources:
+    /*@Override
+    @RestResource(exported = false) // consequence: status 405 si delete sur /books/{id}
+    void deleteById(Integer integer);
+     */
+
     interface BookProjection {
 
         Long getId();
@@ -27,7 +33,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
         String getTitle();
 
         @Value("#{target.author.firstname} #{target.author.lastname}")
-        String getAuthorName();
+        String getAuthor();
 
         @Value("#{target.category.name}")
         String getCategoryName();
