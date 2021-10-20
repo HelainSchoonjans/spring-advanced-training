@@ -1,7 +1,13 @@
 package com.acme.ex1.business.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.acme.ex1.model.Category;
+import com.acme.ex1.repository.CategoryRepository;
+import com.acme.ex1.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 
 import com.acme.ex1.business.CommandException;
@@ -17,20 +23,22 @@ import com.acme.ex1.service.command.MemberRegistrationCommand;
 public class MemberRegistrationCommandHandler implements CommandHandler {
 
     //private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    
+
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     @EventListener(MemberRegistrationCommand.class)
     public void handle(AbstractCommand command) {
-        if(!(command instanceof MemberRegistrationCommand)){
+        if (!(command instanceof MemberRegistrationCommand)) {
             return;
         }
 
-        MemberRegistrationCommand cmd = (MemberRegistrationCommand)command;
+        MemberRegistrationCommand cmd = (MemberRegistrationCommand) command;
 
-        /* TODO : 
-        remplacer null ci dessous par un appel au repository pour obtenir le Member dont le username est cmd.getUsername()
-        */
-        Optional<Member> _member = null; 
+        Optional<Member> _member = memberRepository.findByAccountUsername(cmd.getUsername());
         if(_member.isPresent()) {
             throw new CommandException("memberRegistration-account.already.exists", true);
         }
@@ -46,14 +54,12 @@ public class MemberRegistrationCommandHandler implements CommandHandler {
         member.setAccount(account);
 
         if(cmd.getPreferences() != null) {
-            // TODO: comprendre et décommenter les lignes ci dessous (préalable : ajouter une dépendance vers CategoryRepository)
-            //List<Category> preferences = cmd.getPreferences().stream()
-            //		.flatMap(i -> categoryRepository.findById(i).stream())
-            //		.collect(Collectors.toList());
-            //member.setPreferences(preferences);
+            List<Category> preferences = cmd.getPreferences().stream()
+                    .flatMap(i -> categoryRepository.findById(i).stream())
+                    .collect(Collectors.toList());
+            member.setPreferences(preferences);
         }
-        // TODO : sauvegarde du member
-        
+        memberRepository.save(member);
         
         cmd.setMember(member);
         

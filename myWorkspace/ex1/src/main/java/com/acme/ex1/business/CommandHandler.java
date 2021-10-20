@@ -10,13 +10,17 @@ import org.springframework.stereotype.Component;
 
 import com.acme.ex1.service.AbstractCommand;
 
+import javax.transaction.Transactional;
+
 public interface CommandHandler {
 
 	void handle(AbstractCommand command);
-	
+
+	@Transactional(value = Transactional.TxType.MANDATORY)
 	@Component
 	@Lazy
-	@Retention(RetentionPolicy.RUNTIME) @Target(ElementType.TYPE)
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
 	@interface Handler {
 		String value() default "";
 	}

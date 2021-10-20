@@ -2,6 +2,11 @@ package com.acme.ex1.business.impl;
 
 import java.util.function.Predicate;
 
+import com.acme.ex1.business.CommandException;
+import com.acme.ex1.repository.BookRepository;
+import com.acme.ex1.repository.MemberRepository;
+import com.acme.ex1.repository.ReservationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 
 import com.acme.ex1.business.CommandHandler;
@@ -16,8 +21,15 @@ import com.acme.ex1.service.command.ReservationCommand;
 @Handler
 public class ReservationCommandHandler implements CommandHandler {
 
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
+
     @Override
-    @EventListener(ReservationCommand.class)    
+    @EventListener(ReservationCommand.class)
     public void handle(AbstractCommand command) {
         if (!(command instanceof ReservationCommand)) {
             return;
@@ -25,12 +37,8 @@ public class ReservationCommandHandler implements CommandHandler {
 
         ReservationCommand cmd = (ReservationCommand) command;
 
-        /* TODO : 
-		Remplacer null ci dessous par un appel au repository pour obtenir le Member dont le username est cmd.getUsername()
-        S'il n'y en pas : new CommandException("reservation-member.not.found")
-        Suggestion : utiliser la méthode orElseThrow de la classe Optional
-        */
-        Member member = null;
+        Member member = memberRepository.findByAccountUsername(cmd.getUsername())
+                .orElseThrow(() -> new CommandException("reservation-member.not.found"));
 
         Predicate<Reservation> conflict = r -> r.getPickupDate().isBefore(cmd.getReturnDate()) && r.getReturnDate().isAfter(cmd.getPickupDate());
 
@@ -39,16 +47,11 @@ public class ReservationCommandHandler implements CommandHandler {
             // throw new CommandException("reservation-member.quota.exceeded");
         }
 
-        /* TODO : 
-		Remplacer null ci dessous par un appel au repository pour obtenir le livre dont l'id est cmd.getBookId()
-        S'il n'y en pas : new CommandException("reservation-book.not.found");
-        Suggestion : utiliser la méthode orElseThrow de la classe Optional
-        */
-        Book book = null;
+        Book book = bookRepository.findById(cmd.getBookId()).orElseThrow(() -> new CommandException("reservation-book.not.found"));
 
         if (book.getReservations().stream().anyMatch(conflict)) {
             // ne pas décommenter la ligne ci-dessous
-        	// throw new CommandException("reservation-book.unavailable");
+            // throw new CommandException("reservation-book.unavailable");
         }
 
         Reservation reservation = new Reservation();
@@ -56,7 +59,7 @@ public class ReservationCommandHandler implements CommandHandler {
         reservation.setBook(book);
         reservation.setPickupDate(cmd.getPickupDate());
         reservation.setReturnDate(cmd.getReturnDate());
-        // TODO : sauvegarde de la réservation
+        reservationRepository.save(reservation);
 
         cmd.setReservation(reservation);
 
