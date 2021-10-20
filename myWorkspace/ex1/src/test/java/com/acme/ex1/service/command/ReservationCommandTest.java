@@ -25,7 +25,9 @@ public class ReservationCommandTest {
         cmd.setUsername("jdoe");
         cmd.setPickupDate(LocalDate.now().plusDays(1));
         cmd.setReturnDate(LocalDate.now().plusDays(10));
+
         cmd = this.processor.process(cmd);
+
         assertNotNull(cmd.getReservation());
         System.out.println(cmd.getReservation());
     }
