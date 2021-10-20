@@ -1,7 +1,6 @@
 package com.acme.ex2.repository;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.acme.ex2.model.Book;
