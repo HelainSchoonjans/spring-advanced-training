@@ -39,5 +39,20 @@ public class ApplicationConfig {
             }
         }
         }*/
+
+        /*
+        @Component
+        class A {
+            @Transactional
+            public void foo() {
+
+            }
+        }
+
+        Que se passe t'il si on fait getClass sur une instance de A?
+        - si on laisse @Transactional: Proxy
+        - si on enlève le @Transactional: A
+        En effet les annotations ajoutent des proxy autour de la classe.
+         */
     }
 }
