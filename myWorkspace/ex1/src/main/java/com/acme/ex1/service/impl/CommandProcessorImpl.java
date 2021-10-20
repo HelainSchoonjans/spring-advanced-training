@@ -11,6 +11,8 @@ import com.acme.ex1.service.AbstractCommand;
 import com.acme.ex1.service.CommandProcessor;
 import com.acme.ex1.service.ExceptionHandler;
 
+import javax.transaction.Transactional;
+
 @Service
 public class CommandProcessorImpl implements CommandProcessor {
 
@@ -26,16 +28,17 @@ public class CommandProcessorImpl implements CommandProcessor {
 		this.exHandlers = exHandlers;
 		this.ctx = ctx;
 	}
-	
+
+	@Transactional
 	@Override
-	public <T extends AbstractCommand> T process(T command){
+	public <T extends AbstractCommand> T process(T command) {
 
 		String cmdId = command.toString();
 		logger.info("Received a command of type {} : {}", command.getClass().getSimpleName(), cmdId);
 
 		try {
 			logger.info("Is {} valid before handling ?", cmdId);
-            command.validateStateBeforeHandling();
+			command.validateStateBeforeHandling();
 			logger.info("yes, {} is valid, return it", cmdId);
 			
 			// dispatch command to business layer (command handlers)
