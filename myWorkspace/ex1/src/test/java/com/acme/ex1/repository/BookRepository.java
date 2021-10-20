@@ -1,8 +1,7 @@
 package com.acme.ex1.repository;
 
-import com.acme.ex1.model.Author;
 import com.acme.ex1.model.Book;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository extends CrudRepository<Book, Integer> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 }
