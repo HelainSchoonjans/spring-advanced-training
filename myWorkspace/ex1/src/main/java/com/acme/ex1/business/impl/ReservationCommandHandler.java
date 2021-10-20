@@ -15,18 +15,20 @@ import com.acme.ex1.model.Book;
 import com.acme.ex1.model.Member;
 import com.acme.ex1.model.Reservation;
 import com.acme.ex1.service.AbstractCommand;
-import com.acme.ex1.service.command.MemberRegistrationCommand;
 import com.acme.ex1.service.command.ReservationCommand;
 
 @Handler
 public class ReservationCommandHandler implements CommandHandler {
 
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private BookRepository bookRepository;
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private final MemberRepository memberRepository;
+    private final BookRepository bookRepository;
+    private final ReservationRepository reservationRepository;
+
+    public ReservationCommandHandler(MemberRepository memberRepository, BookRepository bookRepository, ReservationRepository reservationRepository) {
+        this.memberRepository = memberRepository;
+        this.bookRepository = bookRepository;
+        this.reservationRepository = reservationRepository;
+    }
 
     @Override
     @EventListener(ReservationCommand.class)
