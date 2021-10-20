@@ -19,9 +19,10 @@
 	* `MemberRepository`
 	* `CategoryRepository`
 
-	Pour chacun le type de l'`ID` est `Integer`
+   Pour chacun le type de l'`ID` est `Integer`
 
-	Définir dans `MemberRepository` une méthode permettant de rechercher un _member_ par son nom d'utilisateur (rappel : un _member_ possède un _acccount_ qui lui même possède une propriété _username_)
+   Définir dans `MemberRepository` une méthode permettant de rechercher un _member_ par son nom d'utilisateur (rappel :
+   un _member_ possède un _account_ qui lui même possède une propriété _username_)
 	
 3. Décommenter les tests unitaires de la classe `com.acme.ex1.repository.BookRepositoryTest` (puis organiser les imports) et coupler Spring et Junit.
 
