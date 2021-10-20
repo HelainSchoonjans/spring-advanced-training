@@ -12,6 +12,9 @@ import com.acme.ex1.service.AbstractCommand;
 
 import javax.transaction.Transactional;
 
+/*
+classes annotated with @Handler will be transactional, lazy, etc.
+ */
 public interface CommandHandler {
 
 	void handle(AbstractCommand command);
