@@ -101,7 +101,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <!-- fin validation -->
-        
+
         <!-- tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -112,7 +112,11 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <scope>test</scope>
-        </dependency>      
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
         <!-- fin tests -->
     </dependencies>
 </project>
