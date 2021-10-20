@@ -41,8 +41,10 @@ public class MemberRegistrationCommandHandler implements CommandHandler {
 
         MemberRegistrationCommand cmd = (MemberRegistrationCommand) command;
 
+        // here we just want to know if it exists; it would be better to add an exist method in the repository...
+        // we are currently loading too much data
         Optional<Member> _member = memberRepository.findByAccountUsername(cmd.getUsername());
-        if(_member.isPresent()) {
+        if (_member.isPresent()) {
             throw new CommandException("memberRegistration-account.already.exists", true);
         }
 
