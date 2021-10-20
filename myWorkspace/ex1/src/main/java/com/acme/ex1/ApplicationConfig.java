@@ -22,9 +22,7 @@ public class ApplicationConfig {
         System.out.println("ctx is open : " + ctx);
         System.out.println(ctx.getBeansOfType(javax.sql.DataSource.class));
         System.out.println(ctx.getBeansOfType(javax.persistence.EntityManagerFactory.class));
-        //System.out.println(ctx.getBeansOfType(org.springframework.transaction.PlatformTransactionManager.class));
-        System.out.println("closing");
-        ctx.close();
+        System.out.println(ctx.getBeansOfType(org.springframework.transaction.PlatformTransactionManager.class));
 
         // spring is collecting the factories:
         // ApplicationConfig.class.getClassLoader().getResources("META_INF/")
