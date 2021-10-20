@@ -22,10 +22,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     interface BookProjection {
 
-        @Value("#{target.id}")
         Long getId();
 
-        @Value("#{target.title}")
         String getTitle();
 
         @Value("#{target.author.firstname} #{target.author.lastname}")
