@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     // injected because of the Import annotation on ApplicationConfiguration
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     SecurityConfiguration(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
