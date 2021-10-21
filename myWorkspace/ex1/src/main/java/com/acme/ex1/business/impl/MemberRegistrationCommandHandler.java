@@ -3,28 +3,25 @@ package com.acme.ex1.business.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import com.acme.ex1.model.Category;
-import com.acme.ex1.repository.CategoryRepository;
-import com.acme.ex1.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.acme.ex1.business.CommandException;
 import com.acme.ex1.business.CommandHandler;
 import com.acme.ex1.business.CommandHandler.Handler;
 import com.acme.ex1.model.Account;
+import com.acme.ex1.model.Category;
 import com.acme.ex1.model.Member;
+import com.acme.ex1.repository.CategoryRepository;
+import com.acme.ex1.repository.MemberRepository;
 import com.acme.ex1.service.AbstractCommand;
 import com.acme.ex1.service.command.MemberRegistrationCommand;
-
 
 @Handler
 public class MemberRegistrationCommandHandler implements CommandHandler {
 
-    //private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository   memberRepository;
     private final CategoryRepository categoryRepository;
 
     public MemberRegistrationCommandHandler(MemberRepository memberRepository, CategoryRepository categoryRepository) {
@@ -54,20 +51,22 @@ public class MemberRegistrationCommandHandler implements CommandHandler {
 
         Account account = new Account();
         // si nous stockons les mots de passe : 
-        // account.setPassword(/*hachage de cmd.getPassword()*/);
+        account.setPassword(passwordEncoder.encode(cmd.getPassword()));
         account.setUsername(cmd.getUsername());
         member.setAccount(account);
 
-        if(cmd.getPreferences() != null) {
-            List<Category> preferences = cmd.getPreferences().stream()
-                    .flatMap(i -> categoryRepository.findById(i).stream())
+        if (cmd.getPreferences() != null) {
+            List<Category> preferences = cmd.getPreferences()
+                    .stream()
+                    .flatMap(i -> categoryRepository.findById(i)
+                            .stream())
                     .collect(Collectors.toList());
             member.setPreferences(preferences);
         }
         memberRepository.save(member);
-        
+
         cmd.setMember(member);
-        
+
         // si nous déléguons l'authentification : création du compte utilisateur sur ce dernier.
     }
 }
