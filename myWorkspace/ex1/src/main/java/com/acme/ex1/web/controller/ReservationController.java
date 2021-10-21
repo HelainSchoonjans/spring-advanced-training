@@ -3,6 +3,7 @@ package com.acme.ex1.web.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,14 +24,15 @@ public class ReservationController {
 		this.processor = processor;
 	}
 
-	@PostMapping("/reservations")
+    @PreAuthorize("hasAuthority('borrow-books')")
+    @PostMapping("/reservations")
     public String borrow(@Valid @ModelAttribute("command") ReservationCommand command, BindingResult br, RedirectAttributes ra) {
         if (br.hasErrors()) {
             ra.addFlashAttribute("command", command);
             ra.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX+"command", br);
             return "redirect:/books/" + command.getBookId();
         }
-        
+
         processor.process(command);
 
         return "redirect:/books";
