@@ -26,7 +26,9 @@ public class ReservationCommand extends AbstractCommand {
     private Reservation reservation;
 
     public ReservationCommand() {
-	}
+        // we could get the username from the security context instead of passing it around
+        // ...GetContext.getUsername()
+    }
 
     public int getBookId() {
         return bookId;
