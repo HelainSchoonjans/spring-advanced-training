@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class MemberEndpoint {
         this.processor = processor;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("members")
     ResponseEntity<Void> members(@RequestBody @Valid MemberRegistrationCommand command) {
         MemberRegistrationCommand result = processor.process(command);

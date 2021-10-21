@@ -55,7 +55,8 @@ class ReservationRestEndpointTest {
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
-    
+
+    @WithMockUser(username = "jdoe")
     @Test
     void testReservations400() throws Exception {
         ObjectNode node = jackson.createObjectNode()
@@ -73,6 +74,7 @@ class ReservationRestEndpointTest {
                 .andDo(print());
     }    
 
+    @WithMockUser(username = "jdoe")
     @Test
     @Sql(statements = "delete from Reservation")
     void testReservations201() throws Exception {
