@@ -29,20 +29,23 @@ Objectifs :
 	Essayer ensuite d'accéder à la ressource `http://localhost:8080/books` avec le nom d'utilisateur _jdoe_ et le mot de passe _azerty_
 
 
-4. Reprendre le code de la classe `com.acme.ex1.business.impl.MemberRegistrationCommanHandler` : le mot de passe doit être haché avec Bcrypt (utilisation de `BCryptPasswordEncoder`) avant d'être sauvegardé.
+4. Reprendre le code de la classe `com.acme.ex1.business.impl.MemberRegistrationCommanHandler` : le mot de passe doit
+   être haché avec Bcrypt (utilisation de `BCryptPasswordEncoder`) avant d'être sauvegardé.
 
-5. Rédéfinir la méthode `void configure(HttpSecurity http)` : seule l'authentifcation par formulaire de login est activée.
+5. Rédéfinir la méthode `void configure(HttpSecurity http)` : seule l'authentification par formulaire de login est
+   activée.
 
-6. Modifier les règles d'autorisations : POST sur /reservations nécessite la permission (_authority_) `borrow-books`.
+6. Modifier les règles d'authorisation : POST sur /reservations nécessite la permission (_authority_) `borrow-books`.
 
-7. Ajouter la dépendance vers la _taglib_ `spring-security-taglibs` et la déclarer dans la vue `src/main/resources/META-INF/resources/books/detail.jsp` :
+7. Ajouter la dépendance vers la _taglib_ `spring-security-taglibs` et la déclarer dans la
+   vue `src/main/resources/META-INF/resources/books/detail.jsp` :
 
-	```
-	<%@taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-	```
+   ```
+   <%@taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+   ```
 
-	puis :
-	
+   puis :
+
 	* n'afficher le formulaire de réservation que si l'utilisateur à la permission (_authority_) `borrow-books`.
 	* afficher à la place du formulaire de réservation un lien vers le formulaire de login si l'utilisateur n'est pas authentifié (`!isAuthenticated()`).
 
