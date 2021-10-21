@@ -79,14 +79,20 @@
         <dependency> <!-- rendu des vues jsp -->
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
-        </dependency>        
-		<!-- fin web -->
-		
+        </dependency>
+        <!-- fin web -->
+        <!-- security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- fin security -->
+
         <!-- validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
