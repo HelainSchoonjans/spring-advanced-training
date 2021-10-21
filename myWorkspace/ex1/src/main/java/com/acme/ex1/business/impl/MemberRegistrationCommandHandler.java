@@ -19,12 +19,13 @@ import com.acme.ex1.service.command.MemberRegistrationCommand;
 @Handler
 public class MemberRegistrationCommandHandler implements CommandHandler {
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final MemberRepository      memberRepository;
+    private final CategoryRepository    categoryRepository;
 
-    private final MemberRepository   memberRepository;
-    private final CategoryRepository categoryRepository;
-
-    public MemberRegistrationCommandHandler(MemberRepository memberRepository, CategoryRepository categoryRepository) {
+    public MemberRegistrationCommandHandler(BCryptPasswordEncoder passwordEncoder, MemberRepository memberRepository,
+            CategoryRepository categoryRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.memberRepository = memberRepository;
         this.categoryRepository = categoryRepository;
     }
