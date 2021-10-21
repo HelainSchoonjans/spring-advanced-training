@@ -44,7 +44,10 @@ class BookEndpoint {
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 				
 	}
-	
+
+	// attention, here we are transforming the Elasticsearch json in java then back in json...
+	// a better way to use a webclient and pass a flux instead of serializing.
+	// use webclient
 	@GetMapping(path = "books",params = "title")
 	Flux<SearchHit<BookResult>> find(@RequestParam String title, String author) {
 		Query query = new CriteriaQuery(new Criteria("title").fuzzy(title).and("author").fuzzy(author));
