@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 // this creates a bean of type BCryptPasswordEncoder of name 'bCryptPasswordEncoder'
 @Import(BCryptPasswordEncoder.class)
 @SpringBootApplication
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationConfig {
 
     @Bean

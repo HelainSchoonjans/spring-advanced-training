@@ -7,6 +7,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.acme.ex1.model.Reservation;
 import com.acme.ex1.service.AbstractCommand;
 
@@ -28,6 +29,9 @@ public class ReservationCommand extends AbstractCommand {
     public ReservationCommand() {
         // we could get the username from the security context instead of passing it around
         // ...GetContext.getUsername()
+        this.username = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
     }
 
     public int getBookId() {
