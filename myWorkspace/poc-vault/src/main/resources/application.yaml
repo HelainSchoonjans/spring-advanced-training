@@ -7,8 +7,9 @@ spring.cloud.vault:
     enabled: true
     backend: secret
     application-name: poc-vault
+  database:
+    enabled: true
+    backend: database
+    role: admin
 spring.datasource:
   url: jdbc:postgresql://localhost:5432/formation_spring
-  username: postgres
-  password: postgres
-  driverClassName: org.postgresql.Driver
