@@ -11,6 +11,10 @@ Start the docker stack:
 
     docker-compose up
 
+There is multiple main methods you can call.
+
+The first one you can try is the WithString.main, that uses the default kafka api to send/receive messages.
+
 # tips
 
 Using the processor of exercise 1, it is possible to have a generic consumer:
