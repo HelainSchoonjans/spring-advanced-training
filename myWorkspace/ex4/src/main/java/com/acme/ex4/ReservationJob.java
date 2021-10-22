@@ -4,9 +4,12 @@ import javax.sql.DataSource;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @EnableBatchProcessing
@@ -31,6 +34,17 @@ public class ReservationJob {
                 .dataSource(getDataSource())
                 .sql(RESERVATION_QUERY)
                 .beanRowMapper(ReservationRow.class)
+                .build();
+    }
+
+    @Bean
+    @StepScope
+    public ItemWriter<ReservationRow> writer() {
+        return new FlatFileItemWriterBuilder<ReservationRow>().name("reservationWriter")
+                .resource(new FileSystemResource("c:\\formation_spring\\files\\reservations.csv"))
+                .delimited()
+                .delimiter(";")
+                .names(new String[] { "bookId", "username", "title" })
                 .build();
     }
 
