@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -54,9 +56,15 @@ public class ReservationJob {
     having reader and writer in the singleton/default scope can be problematic
     the cursor of the reader will be kept every time the job is scheduled.
     That's why we have the @StepScope annotation to ensure the cursor is kept for the step only.
+    We also need a proxy for that, hence the @Scope and proxyMode TARGET_CLASS
+
+    See page #170 of the training for more information
      */
     @Bean
+    // exposes a proxy in front of the bean
     @StepScope
+    // a proxy by heritage so we don't lose any method
+    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ItemReader<ReservationRow> reader() {
         return new JdbcCursorItemReaderBuilder<ReservationRow>().name("reservationItemReader")
                 .dataSource(getDataSource())
@@ -67,6 +75,7 @@ public class ReservationJob {
 
     @Bean
     @StepScope
+    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ItemWriter<ReservationRow> writer() {
         return new FlatFileItemWriterBuilder<ReservationRow>().name("reservationWriter")
                 .resource(new FileSystemResource("c:\\formation_spring\\files\\reservations.csv"))
