@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+// this annotation will make available the StepBuilderFactory
 @EnableBatchProcessing
 // @Configuration will make the bean be surrounded by spring proxy
 @Configuration
