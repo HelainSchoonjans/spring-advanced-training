@@ -1,3 +1,10 @@
+# Running the app
+
+Deploy the docker compose stack.
+
+Configure Vault.
+
+# How to
 
 # run docker compose
 

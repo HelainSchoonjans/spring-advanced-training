@@ -1,0 +1,13 @@
+spring.config.import: vault://
+spring.cloud.vault:
+  authentication: TOKEN
+  token: azerty12345
+  uri: http://localhost:8200
+  kv:
+    enabled: true
+    backend: secret
+    application-name: poc-vault
+spring.datasource:
+  url: jdbc:postgres://localhost:5432/formation_spring
+  username: ${db.username}
+  password: ${db.password}
