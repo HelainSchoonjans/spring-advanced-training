@@ -26,11 +26,11 @@ public class ReservationJob {
 
     @Bean
     @StepScope
-    public ItemReader<Reservation> reader() {
-        return new JdbcCursorItemReaderBuilder<Reservation>().name("reservationItemReader")
+    public ItemReader<ReservationRow> reader() {
+        return new JdbcCursorItemReaderBuilder<ReservationRow>().name("reservationItemReader")
                 .dataSource(getDataSource())
                 .sql(RESERVATION_QUERY)
-                .beanRowMapper(Reservation.class)
+                .beanRowMapper(ReservationRow.class)
                 .build();
     }
 
