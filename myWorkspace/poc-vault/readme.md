@@ -8,15 +8,28 @@ Configure Vault.
 
 # run docker compose
 
-On windows you need to add filesharing on the repository folder first. Settings -> Resources -> File sharing
+On Windows you need to add file-sharing on the repository folder first. Settings -> Resources -> File sharing
 
 Then:
 
     docker-compose up
 
+To find the docker name:
+
+    docker ps
+
 # create a shell to vault
 
+Create an interactive bash process in a docker:
+
     docker exec -it workspace_vault_1 sh
+
+# interact with the database
+
+Create a shell to vault then:
+
+    psql --db formation-spring --user postgres
+    \du
 
 # run commands on vault
 
