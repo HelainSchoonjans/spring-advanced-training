@@ -50,6 +50,11 @@ public class ReservationJob {
         return new DriverManagerDataSource(url, "postgres", null);
     }
 
+    /*
+    having reader and writer in the singleton/default scope can be problematic
+    the cursor of the reader will be kept every time the job is scheduled.
+    That's why we have the @StepScope annotation to ensure the cursor is kept for the step only.
+     */
     @Bean
     @StepScope
     public ItemReader<ReservationRow> reader() {
