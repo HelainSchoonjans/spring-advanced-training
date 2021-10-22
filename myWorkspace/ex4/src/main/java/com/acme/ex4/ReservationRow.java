@@ -6,6 +6,8 @@ public class ReservationRow {
 	private String username;
 	private String bookTitle;
 
+	public ReservationRow() {}
+
 	public ReservationRow(int bookId, String username, String bookTitle) {
 		super();
 		this.bookId = bookId;
