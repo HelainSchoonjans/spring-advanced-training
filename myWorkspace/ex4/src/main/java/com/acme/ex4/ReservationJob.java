@@ -20,6 +20,8 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +33,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 // this annotation will make available the StepBuilderFactory
 @EnableBatchProcessing
 // @Configuration will make the bean be surrounded by spring proxy
-@Configuration
+// @SpringBootApplication includes Configuration. It will here help configure automatically a datasource
+@SpringBootApplication
 public class ReservationJob {
 
     public static final String RESERVATION_QUERY = """
@@ -42,15 +45,21 @@ public class ReservationJob {
     // you can't use constructor injection in the @configuration class!
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
+    @Autowired
+    private DataSource dataSource;
 
     // methods annotated by @Bean will create a bean
     // calling them is equivalent to ctx.getBean; we don't risk executing them twice
     // there are executed only once to create the bean
+
+    // commented because we now create the bean automatically
+    /*
     @Bean
     public DataSource getDataSource() {
         final String url = "jdbc:postgresql://localhost:5432/formation_spring";
         return new DriverManagerDataSource(url, "postgres", null);
     }
+    */
 
     /*
     having reader and writer in the singleton/default scope can be problematic
@@ -67,7 +76,7 @@ public class ReservationJob {
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ItemReader<ReservationRow> reader() {
         return new JdbcCursorItemReaderBuilder<ReservationRow>().name("reservationItemReader")
-                .dataSource(getDataSource())
+                .dataSource(dataSource)
                 .sql(RESERVATION_QUERY)
                 .beanRowMapper(ReservationRow.class)
                 .build();
@@ -81,7 +90,7 @@ public class ReservationJob {
                 .resource(new FileSystemResource("c:\\formation_spring\\files\\reservations.csv"))
                 .delimited()
                 .delimiter(";")
-                .names(new String[] { "bookId", "username", "title"})
+                .names(new String[] { "bookId", "username", "bookTitle"})
                 .build();
     }
 
@@ -102,7 +111,8 @@ public class ReservationJob {
     }
 
     public static void main(String[] args) {
-        try (var ctx = new AnnotationConfigApplicationContext(ReservationJob.class)) {
+        // SpringApplication.run can be used to execute jobs, not, only to run web servers
+        try (var ctx = SpringApplication.run(ReservationJob.class)) {
             JobLauncher launcher = ctx.getBean(JobLauncher.class);
             Job job = ctx.getBean("sendReservationJob", Job.class);
             launcher.run(job, new JobParameters());
